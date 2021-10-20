@@ -16,6 +16,7 @@
     "stylelint-scss": "^3.21.0"
   },
   "devDependencies": {
+    "html-webpack-plugin": "^5.4.0",
     "webpack": "^5.59.0",
     "webpack-cli": "^4.9.1"
   },
