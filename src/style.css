@@ -1,7 +1,35 @@
-.hello {
-  color: red;
+body {
+  font-family: 'Balsamiq Sans', cursive;
+  line-height: 24px;
+  font-weight: normal;
+  font-style: normal;
 }
 
-body {
-  background-color: bisque;
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+header ul {
+  list-style-type: none;
+  display: flex;
+}
+
+header ul li {
+  margin-inline: 1.5em;
+}
+
+header ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+.logo img {
+  width: 4em;
+  height: 4em;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
 }
