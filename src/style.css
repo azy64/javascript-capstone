@@ -147,6 +147,15 @@ footer {
   margin-bottom: 5em;
 }
 
+.comment-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-div p {
+  margin-left: 4em;
+}
+
 @media screen and (min-width: 780px) {
   .card {
     display: grid;

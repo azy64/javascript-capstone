@@ -9,6 +9,7 @@ const img = document.querySelector('.logo-image');
 const content = document.querySelector('.content');
 const header = document.querySelector('#header');
 const info = document.querySelector('.information')
+const comments = document.querySelector('.comments')
 const ImgLoader = new Image(20, 20);
 
 const init = {
@@ -17,6 +18,20 @@ const init = {
 img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
 
+  /**
+ * Function for displaying comments
+ */
+   const displayComments = (data) => {
+    const template = `
+    <div class="comment-div">
+    <div>${data.creation_date}</div>
+    <div>${data.username}:</div>
+    <div>${data.comment}</div>
+    </div>
+    
+    `;
+    comments.innerHTML += template;
+  }  
 
 /**
  * this function fetch data from the API comment endpoint
@@ -24,6 +39,9 @@ const limit = { inf: 0, sup: 50 };
 const getComments = async (id) => {
   const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments?item_id=' + id);
   const json = await response.json();
+  json.forEach(element => {
+    displayComments(element)
+  });
   console.log(json);
 };
 
