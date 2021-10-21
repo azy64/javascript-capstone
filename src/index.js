@@ -8,6 +8,7 @@ import Image from './ImgElement.js';
 const img = document.querySelector('.logo-image');
 const content = document.querySelector('.content');
 const header = document.querySelector('#header');
+const info = document.querySelector('.information')
 const ImgLoader = new Image(20, 20);
 
 const init = {
@@ -16,11 +17,56 @@ const init = {
 img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
 
+const addButtonListen = () => {
+  const buttons = document.querySelectorAll('.btn')
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.container').classList.add('hide')
+      document.querySelector('#header').classList.add('hide')
+      document.querySelector('.comment-section').classList.remove('hide')
+
+      const displayComments = (data) => {
+        const template = `
+        <div class="serie" id="${data.id}">
+          <div class="serie-image">
+            <img src="${data.image.original}">
+          </div>
+
+          <div>
+           <p class="serie-title p">
+            Name: ${data.name}
+           </p>
+           <p>
+            Rating: ${data.rating.average}
+           </p>
+           <p class="serie-description p">
+            ${data.summary}
+           </p>
+          </div>
+    </div>
+        
+        `;
+        info.innerHTML += template;
+      }
+
+      const id = btn.parentElement.parentElement.id
+
+      fetch('https://api.tvmaze.com/shows')
+      .then((resp) => resp.json())
+      .then((datum) => {
+        console.log(datum[id-1]);
+        displayComments(datum[id-1])
+      });     
+    })
+  }); 
+}
+
 /**
  * this function display data in the DOM
  * @param {array} data
  */
 const displayData = (data) => {
+
   let tmp = '';
   // if(data.length <)
   for (let i = limit.inf; i < limit.sup; i += 1) {
@@ -35,13 +81,14 @@ const displayData = (data) => {
     </div>
     <div class="card-like p"><img src="${like}"></div>
     <div class="btn-comment p">
-        <button class="btn">Comment</button>
+        <button type="button" class="btn" >Comment</button>
     </div>
 </div>
     
     `;
   }
   content.innerHTML += tmp;
+  addButtonListen()
 };
 /**
  * this function fetch data from the API
