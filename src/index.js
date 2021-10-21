@@ -16,6 +16,10 @@ const init = {
 img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
 
+/**
+ * this function display data in the DOM
+ * @param {array} data
+ */
 const displayData = (data) => {
   let tmp = '';
   // if(data.length <)
@@ -39,7 +43,10 @@ const displayData = (data) => {
   }
   content.innerHTML += tmp;
 };
-
+/**
+ * this function fetch data from the API
+ * and then call displayData to display data within the DOM
+ */
 const loadData = async () => {
   const l = ImgLoader.getImage();
   l.src = load;
@@ -49,18 +56,13 @@ const loadData = async () => {
     .then((resp) => resp.json())
     .then((datum) => {
       init.data = datum;
-      console.log(init.data[0]);
-      // content.innerHTML = '';
       content.removeChild(l);
       displayData(init.data);
     });
 };
 
 loadData();
-console.log('la data:', init.data);
-// displayData(init.data);
 window.addEventListener('scroll', () => {
-  console.log('Yoffset:', window.pageYOffset);
   if (window.pageYOffset > 10) {
     header.classList.add('fixed');
     header.classList.add('width-100');
@@ -80,5 +82,4 @@ window.addEventListener('scroll', () => {
     limit.sup += 50;
     loadData();
   }
-  console.log('hauteur:', position);
 });

@@ -35,7 +35,6 @@ footer {
 }
 
 .loader {
-
   padding-left: 50%;
   padding-top: 7%;
   width: 80px !important;
@@ -93,8 +92,8 @@ footer {
   width: 100%;
 }
 
-.shadow  {
-   box-shadow: 0 13px 12px rgba(0,0,0,.5);
+.shadow {
+  box-shadow: 0 13px 12px rgba(0, 0, 0, 0.5);
 }
 
 .bg-white {
@@ -111,10 +110,10 @@ footer {
 
 .card:hover {
   cursor: pointer;
-  box-shadow: -1px 2px 17px rgba(0,0,0,.5);
+  box-shadow: -1px 2px 17px rgba(0, 0, 0, 0.5);
 }
-@media screen and (min-width:780px) {
-  
+
+@media screen and (min-width: 780px) {
   .card {
     display: grid;
     grid-template-columns: 1fr;
@@ -126,5 +125,4 @@ footer {
     grid-row-gap: 20px;
     grid-column-gap: 20px;
   }
-  
 }
