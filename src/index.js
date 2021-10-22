@@ -34,10 +34,6 @@ const displayComments = (data) => {
     
     `;
   comments.innerHTML += template;
-  if($(window).scrollTop() >=50) 
-{ 
-    $(window).scrollTop(0); 
-}
 };
 
 /**
