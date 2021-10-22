@@ -22,8 +22,6 @@ To get a local copy up and running follow these simple example steps.
 
 2) Open in browser to view site
 
-## <a href="https://azy64.github.io/javascript-capstone/dist/">LIVE DEMO</a>
-
 ## Testing
 
 To test this project you need to :
@@ -36,7 +34,7 @@ To test this project you need to :
 
 ## Live Link
 
-[Live Page](https://kingstalux.github.io//dist)
+<a href="https://azy64.github.io/javascript-capstone/dist/">LIVE PAGE</a>
 
 ## Getting Started
 
