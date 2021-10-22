@@ -1,7 +1,7 @@
 {
   "name": "javascript-capstone",
   "version": "1.0.0",
-  "description": "",
+  "description": "The JavaScript capstone project is about building your own web application based on an external API. You will select an API that provides data about a topic that you like and then build the webapp around it. The webapp will have 2 or 3 user interfaces. In this case we have chosen a <a href=\"https://www.tvmaze.com/api\">TVMAZE API</a>",
   "private": true,
   "dependencies": {
     "babel-eslint": "^10.1.0",
@@ -16,15 +16,17 @@
     "stylelint-scss": "^3.21.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
     "css-loader": "^6.4.0",
     "html-webpack-plugin": "^5.4.0",
+    "jest": "^27.3.1",
     "style-loader": "^3.3.0",
     "webpack": "^5.59.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.3.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack serve --open",
     "build": "webpack"
   },
@@ -38,5 +40,6 @@
   "bugs": {
     "url": "https://github.com/azy64/javascript-capstone/issues"
   },
-  "homepage": "https://github.com/azy64/javascript-capstone#readme"
+  "homepage": "https://github.com/azy64/javascript-capstone#readme",
+  "main": "webpack.config.js"
 }
