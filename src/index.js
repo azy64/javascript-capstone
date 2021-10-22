@@ -21,6 +21,11 @@ img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
 img2.setAttribute('src', cancel);
 
+const commentCounter = (json) => {
+  const length = json.length
+  document.querySelector('.comment-heading').innerHTML = 'Comment' + '(' + length + ')' 
+}
+
 /**
  * Function for displaying comments
  */
@@ -44,12 +49,15 @@ const getComments = async (id) => {
     .then((resp) => resp.json())
     .then((json) => {
       if (json.error) {
+        let json = []
         const p = document.createElement('p');
         p.innerHTML = 'Add a new comment';
         document.querySelector('.comments').appendChild(p);
+        commentCounter(json)
       } else {
         json.forEach((element) => {
           displayComments(element);
+          commentCounter(json)
         });
       }
     });
@@ -209,3 +217,4 @@ window.addEventListener('scroll', () => {
 img2.addEventListener('click', () => {
   window.location.reload();
 });
+
