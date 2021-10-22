@@ -10,4 +10,9 @@ export default class Utilities {
         });
       });
     }
+
+    static counter = (data) => {
+      if (Array.isArray(data)) { return data.length; }
+      return 0;
+    }
 }

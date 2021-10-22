@@ -11,6 +11,7 @@ import Utilities from './Utilities.js';
 const img = document.querySelector('.logo-image');
 const content = document.querySelector('.content');
 const header = document.querySelector('#header');
+const counter = document.querySelector('#number');
 const ImgLoader = new Image(20, 20);
 const baseUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
 let systemId = '';
@@ -95,7 +96,7 @@ const displayData = (data) => {
     if (i >= data.length) break;
     tmp += `
     <div class="card" id="${data[i].id}">
-    <div class="card-image">
+    <div class="p card-image text-center">
         <img src="${data[i].image.medium}">
     </div>
     <div class="card-title p">
@@ -128,6 +129,7 @@ const loadData = async () => {
       init.data = datum;
       content.removeChild(l);
       displayData(init.data);
+      counter.innerHTML = Utilities.counter(init.data);
     });
 };
 getLikes();

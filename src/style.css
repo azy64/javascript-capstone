@@ -24,6 +24,10 @@ header ul li a {
   color: black;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .logo img {
   width: 4em;
   height: 4em;
@@ -46,7 +50,7 @@ footer {
 }
 
 .card-image img {
-  width: 100%;
+  width: 99%;
 }
 
 .grid {
@@ -125,4 +129,16 @@ footer {
     grid-row-gap: 20px;
     grid-column-gap: 20px;
   }
+  #number {
+    border-radius: 6px;
+    width: 70px;
+    color: white;
+    background-color: green;
+  }
+  .item:hover{
+    color: green;
+  }
+}
+.active {
+  color: green;
 }
