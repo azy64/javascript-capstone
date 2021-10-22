@@ -5,13 +5,14 @@ import cancel from './images/xicon.jpg';
 import load from './images/loading.gif';
 import like from './images/heart.png';
 import Image from './ImgElement.js';
+import commentCounter from './count-comment.js';
+import { displayComments, displayInfo } from './display.js';
 
 const img = document.querySelector('.logo-image');
 const img2 = document.querySelector('.x-icon');
 const content = document.querySelector('.content');
 const header = document.querySelector('#header');
-const info = document.querySelector('.information');
-const comments = document.querySelector('.comments');
+
 const ImgLoader = new Image(20, 20);
 
 const init = {
@@ -21,26 +22,6 @@ img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
 img2.setAttribute('src', cancel);
 
-const commentCounter = (json) => {
-  const length = json.length
-  document.querySelector('.comment-heading').innerHTML = 'Comment' + '(' + length + ')' 
-}
-
-/**
- * Function for displaying comments
- */
-const displayComments = (data) => {
-  const template = `
-    <section class="comment-div">
-    <div>${data.creation_date}</div>
-    <div>${data.username}:</div>
-    <div>${data.comment}</div>
-    </section>
-    
-    `;
-  comments.innerHTML += template;
-};
-
 /**
  * this function fetch data from the API comment endpoint
  */
@@ -49,45 +30,18 @@ const getComments = async (id) => {
     .then((resp) => resp.json())
     .then((json) => {
       if (json.error) {
-        let json = []
+        const json = [];
         const p = document.createElement('p');
         p.innerHTML = 'Add a new comment';
         document.querySelector('.comments').appendChild(p);
-        commentCounter(json)
+        commentCounter(json);
       } else {
         json.forEach((element) => {
           displayComments(element);
-          commentCounter(json)
+          commentCounter(json);
         });
       }
     });
-};
-
-/**
- * Display data about a particular series
- */
-const displayInfo = (data) => {
-  const template = `
-    <div class="serie" id="${data.id}">
-      <div class="serie-image">
-        <img src="${data.image.original}">
-      </div>
-
-      <div>
-       <p class="serie-title p">
-        Name: ${data.name}
-       </p>
-       <p>
-        Rating: ${data.rating.average}
-       </p>
-       <p class="serie-description p">
-        ${data.summary}
-       </p>
-      </div>
-</div>
-    
-    `;
-  info.innerHTML += template;
 };
 
 /**
