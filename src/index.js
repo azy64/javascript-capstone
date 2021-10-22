@@ -10,8 +10,8 @@ const img = document.querySelector('.logo-image');
 const img2 = document.querySelector('.x-icon');
 const content = document.querySelector('.content');
 const header = document.querySelector('#header');
-const info = document.querySelector('.information')
-const comments = document.querySelector('.comments')
+const info = document.querySelector('.information');
+const comments = document.querySelector('.comments');
 const ImgLoader = new Image(20, 20);
 
 const init = {
@@ -21,11 +21,11 @@ img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
 img2.setAttribute('src', cancel);
 
-  /**
+/**
  * Function for displaying comments
  */
-   const displayComments = (data) => {
-    const template = `
+const displayComments = (data) => {
+  const template = `
     <section class="comment-div">
     <div>${data.creation_date}</div>
     <div>${data.username}:</div>
@@ -33,31 +33,37 @@ img2.setAttribute('src', cancel);
     </section>
     
     `;
-    comments.innerHTML += template;
-  }  
+  comments.innerHTML += template;
+  if($(window).scrollTop() >=50) 
+{ 
+    $(window).scrollTop(0); 
+}
+};
 
 /**
  * this function fetch data from the API comment endpoint
  */
 const getComments = async (id) => {
-  await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments?item_id=' + id)
-  .then((resp) => resp.json())
-  .then((json) => {
-    if (json.error) {
-      return json = [];
-    } else {
-      json.forEach(element => {
-        displayComments(element)
-      });
-    }
-  });
- };
+  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments?item_id=${id}`)
+    .then((resp) => resp.json())
+    .then((json) => {
+      if (json.error) {
+        const p = document.createElement('p');
+        p.innerHTML = 'Add a new comment';
+        document.querySelector('.comments').appendChild(p);
+      } else {
+        json.forEach((element) => {
+          displayComments(element);
+        });
+      }
+    });
+};
 
-  /**
+/**
  * Display data about a particular series
- */    
-   const displayInfo = (data) => {
-    const template = `
+ */
+const displayInfo = (data) => {
+  const template = `
     <div class="serie" id="${data.id}">
       <div class="serie-image">
         <img src="${data.image.original}">
@@ -77,73 +83,69 @@ const getComments = async (id) => {
 </div>
     
     `;
-    info.innerHTML += template;
-  }
+  info.innerHTML += template;
+};
 
 /**
  * Event for implementing comment popup
  */
 const addButtonListen = () => {
-  const buttons = document.querySelectorAll('.btn')
-  buttons.forEach(btn => {
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      document.querySelector('.container').classList.add('hide')
-      document.querySelector('.logo').classList.add('hide')
-      document.querySelector('.links').classList.add('hide')
-      document.querySelector('.x-icon').classList.remove('hide')
-      document.querySelector('.form').classList.remove('hide')
-      const id = btn.parentElement.parentElement.id
+      window.scrollTo(0, 0);
+      document.querySelector('.comment-section').classList.remove('hide');
+      const { id } = btn.parentElement.parentElement;
 
-/**
+      /**
  * Get information about series to display
  */
       fetch('https://api.tvmaze.com/shows')
-      .then((resp) => resp.json())
-      .then((datum) => {
-        displayInfo(datum[id-1]);
-      });
-      getComments(id)
-      
-/**
+        .then((resp) => resp.json())
+        .then((datum) => {
+          displayInfo(datum[id - 1]);
+        });
+      getComments(id);
+
+      /**
  * Function to post comments to API
  */
-document.querySelector('.button-submit').addEventListener('click', (e) => {
-  e.preventDefault()
-  const name = document.querySelector('.name').value
-  const message = document.querySelector('#message').value
-  
-  const postComments = async () => {
-    const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments', {
-      method: 'post',
-      body: JSON.stringify({
-        "item_id": id,
-        "username": name,
-        "comment": message
-    }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
+      document.querySelector('.button-submit').addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = document.querySelector('.name').value;
+        const message = document.querySelector('#message').value;
+
+        const postComments = async () => {
+          const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments', {
+            method: 'post',
+            body: JSON.stringify({
+              item_id: id,
+              username: name,
+              comment: message,
+            }),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+          });
+          /*eslint-disable*/
+          const json = await response.text();
+          document.querySelector('.comments').innerHTML = ''
+          getComments(id);
+        };
+
+        document.querySelector('.name').value = '';
+        document.querySelector('#message').value = '';
+        postComments();
+      });
     });
-    const json = await response.text();
-    console.log(json);
-
-    getComments(id)
-  }
-
-  document.querySelector('.name').value = ''
-  document.querySelector('#message').value = ''
-  postComments()
-})
-    })
-  }); 
-}
+  });
+};
 
 /**
  * this function display data in the DOM
  * @param {array} data
  */
 const displayData = (data) => {
-
   let tmp = '';
   // if(data.length <)
   for (let i = limit.inf; i < limit.sup; i += 1) {
@@ -165,7 +167,7 @@ const displayData = (data) => {
     `;
   }
   content.innerHTML += tmp;
-  addButtonListen()
+  addButtonListen();
 };
 /**
  * this function fetch data from the API
@@ -209,18 +211,5 @@ window.addEventListener('scroll', () => {
 });
 
 img2.addEventListener('click', () => {
-  window.location.reload()
-  // document.querySelector('.container').classList.remove('hide')
-  // document.querySelector('.logo').classList.remove('hide')
-  // document.querySelector('.links').classList.remove('hide')
-  // document.querySelector('.x-icon').classList.add('hide')
-  // document.querySelector('.form').classList.add('hide')
-  // document.querySelector('.information').innerHTML = ''
-  // document.querySelector('.comments').innerHTML = ''
-  // document.documentElement.scrollTop = 0;
-})
-
-/**
- * Unique ID generated for App
- */
-// YG7f4fmyaSRAJHzw8A5N
+  window.location.reload();
+});

@@ -126,12 +126,19 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 0.1em solid black;
+  padding: 1em;
+  margin: 2em;
+  box-shadow: -1px 2px 17px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  background-color: white;
+  z-index: 2;
 }
 
 .serie {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  margin-inline: 5em;
+  display: flex;
+  flex-direction: column;
 }
 
 .serie-image img {
@@ -140,12 +147,20 @@ footer {
 }
 
 .button-submit {
+  box-shadow: 4px 5px 2px black;
+  background-color: white;
+  border: 1px solid black;
+  font-family: 'Balsamiq Sans', cursive;
   margin-bottom: 5em;
+}
+
+.button-submit:hover {
+  background-color: red;
+  cursor: pointer;
 }
 
 .comment-div {
   display: flex;
-  justify-content: space-between;
 }
 
 .comment-div div {
@@ -176,5 +191,12 @@ footer {
     grid-template-columns: auto auto auto auto auto auto;
     grid-row-gap: 20px;
     grid-column-gap: 20px;
+  }
+
+  .serie {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 2em;
+    margin-inline: 5em;
   }
 }
