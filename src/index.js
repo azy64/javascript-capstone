@@ -132,15 +132,22 @@ const addLike = (id, data) => {
     .then((res) => res.text())
     .then((data) => data);
 };
-
+/**
+ * display a like after to click on the like button
+ * @param {elementNode} node 
+ * @param {integer} id 
+ */
 const displayLike = async (node, id) => {
-  await getLikes();
-  const data = AppId.getLikes();
-  if (data.length > 0) {
-    const index = data.findIndex((element) => element.item_id === id);
+  // await getLikes();
+  // const data = AppId.getLikes();
+  //console.log('data:',data)
+  //if (data.length > 0) {
+    // const index = data.findIndex((element) => element.item_id === id);
     const brother = node.nextSibling;
-    brother.innerHTML = data[index].likes;
-  }
+    // if(data[index])
+    // brother.innerHTML = data[index].likes;
+    brother.innerHTML = parseInt(brother.innerHTML,10)+1;
+  //}
 };
 const giveLike = (e) => {
   const myTarget = e.target;
@@ -150,7 +157,6 @@ const giveLike = (e) => {
     item_id: id,
   };
   addLike(systemId, value);
-  // getLikes();
   displayLike(e.target, id);
 };
 
