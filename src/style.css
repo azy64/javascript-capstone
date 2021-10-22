@@ -72,6 +72,10 @@ footer {
   padding: 5px;
 }
 
+.p p {
+  margin: 0;
+}
+
 .grid-col-5 {
   grid-template-columns: auto;
   grid-row-gap: 20px;
@@ -117,6 +121,73 @@ footer {
   box-shadow: -1px 2px 17px rgba(0, 0, 0, 0.5);
 }
 
+.btn:hover {
+  background-color: green;
+  cursor: pointer;
+}
+
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0.1em solid black;
+  padding: 1em;
+  box-shadow: -1px 2px 17px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 5%;
+  left: 1.5em;
+  right: 1.5em;
+  background-color: white;
+  z-index: 2;
+  height: 570px;
+  width: auto;
+  overflow-y: scroll;
+}
+
+.serie {
+  display: flex;
+  flex-direction: column;
+}
+
+.serie-image img {
+  height: 33em;
+  width: 23em;
+}
+
+.button-submit {
+  box-shadow: 4px 5px 2px black;
+  background-color: white;
+  border: 1px solid black;
+  font-family: 'Balsamiq Sans', cursive;
+  margin-bottom: 5em;
+}
+
+.button-submit:hover {
+  background-color: green;
+  cursor: pointer;
+}
+
+.comment-div {
+  display: flex;
+}
+
+.comment-div div {
+  margin-left: 1em;
+}
+
+.x-icon {
+  height: 5em;
+  width: 5em;
+}
+
+.x-icon:hover {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
 @media screen and (min-width: 780px) {
   .card {
     display: grid;
@@ -128,6 +199,13 @@ footer {
     grid-template-columns: auto auto auto auto auto auto;
     grid-row-gap: 20px;
     grid-column-gap: 20px;
+  }
+
+  .serie {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 2em;
+    margin-inline: 5em;
   }
 
   #number {

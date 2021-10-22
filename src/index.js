@@ -1,14 +1,18 @@
 // import _ from 'lodash';
 import './style.css';
 import logo from './images/logo.png';
+import cancel from './images/xicon.jpg';
 import load from './images/loading.gif';
 import like from './images/heart.png';
 import likeGreen from './images/heart-green.png';
 import Image from './ImgElement.js';
+import commentCounter from './count-comment.js';
+import { displayComments, displayInfo } from './display.js';
 import AppId from './AppId.js';
 import Utilities from './Utilities.js';
 
 const img = document.querySelector('.logo-image');
+const img2 = document.querySelector('.x-icon');
 const content = document.querySelector('.content');
 const header = document.querySelector('#header');
 const counter = document.querySelector('#number');
@@ -20,6 +24,90 @@ const init = {
 };
 img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
+img2.setAttribute('src', cancel);
+
+/**
+ * this function fetch data from the API comment endpoint
+ */
+const getComments = async (id) => {
+  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments?item_id=${id}`)
+    .then((resp) => resp.json())
+    .then((json) => {
+      if (json.error) {
+        const json = [];
+        const p = document.createElement('p');
+        p.innerHTML = 'Add a new comment';
+        document.querySelector('.comments').appendChild(p);
+        commentCounter(json);
+      } else {
+        json.forEach((element) => {
+          displayComments(element);
+          commentCounter(json);
+        });
+      }
+    });
+};
+
+/**
+ * Event for implementing comment popup
+ */
+const addButtonListen = () => {
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      window.scrollTo(0, 0);
+      document.querySelector('.comment-section').classList.remove('hide');
+      const { id } = btn.parentElement.parentElement;
+
+      /**
+ * Get information about series to display
+ */
+      fetch('https://api.tvmaze.com/shows')
+        .then((resp) => resp.json())
+        .then((datum) => {
+          if (id <= 16) {
+            displayInfo(datum[id - 1]);
+          } else if (id <= 35) {
+            displayInfo(datum[id - 2]);
+          } else {
+            displayInfo(datum[id - 3]);
+          }
+        });
+      getComments(id);
+
+      /**
+ * Function to post comments to API
+ */
+      document.querySelector('.button-submit').addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = document.querySelector('.name').value;
+        const message = document.querySelector('#message').value;
+
+        const postComments = async () => {
+          const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments', {
+            method: 'post',
+            body: JSON.stringify({
+              item_id: id,
+              username: name,
+              comment: message,
+            }),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+          });
+          /*eslint-disable*/
+          const json = await response.text();
+          document.querySelector('.comments').innerHTML = ''
+          getComments(id);
+        };
+
+        document.querySelector('.name').value = '';
+        document.querySelector('#message').value = '';
+        postComments();
+      });
+    });
+  });
+};
 
 if (localStorage.getItem('appId')) systemId = localStorage.getItem('appId');
 else {
@@ -104,16 +192,18 @@ const displayData = (data) => {
     </div>
     <div class="card-like p"><img class="like-btn" alt="click to like" title="click to like" src="${like}"><span>${myLike(data[i].id)}</span></div>
     <div class="btn-comment p">
-        <button class="btn">Comment</button>
+        <button type="button" class="btn" >Comment</button>
     </div>
 </div>
     
     `;
   }
   content.innerHTML += tmp;
+  addButtonListen();
   putLike();
   Utilities.hover({ element: '.like-btn', img1: like, img2: likeGreen });
 };
+
 /**
  * this function fetch data from the API
  * and then call displayData to display data within the DOM
@@ -155,3 +245,8 @@ window.addEventListener('scroll', () => {
     loadData();
   }
 });
+
+img2.addEventListener('click', () => {
+  window.location.reload();
+});
+
