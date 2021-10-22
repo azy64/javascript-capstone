@@ -67,7 +67,7 @@ const addButtonListen = () => {
         .then((datum) => {
           if (id <= 16) {
             displayInfo(datum[id - 1]);
-          } else if(id <= 35) {
+          } else if (id <= 35) {
             displayInfo(datum[id - 2]);
           } else {
             displayInfo(datum[id - 3]);

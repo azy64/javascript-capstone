@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import commentCounter from '../src/count-comment.js';
+import comment from '../src/counter.js';
 
 const json = [];
 const json2 = [
@@ -14,6 +14,6 @@ const json2 = [
 ];
 
 test('Count the number of comments on a page', () => {
-  expect(commentCounter(json)).toBe(0);
-  expect(commentCounter(json2)).toBe(2);
+  expect(comment(json)).toBe(0);
+  expect(comment(json2)).toBe(2);
 });
