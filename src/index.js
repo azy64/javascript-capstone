@@ -65,10 +65,12 @@ const addButtonListen = () => {
       fetch('https://api.tvmaze.com/shows')
         .then((resp) => resp.json())
         .then((datum) => {
-          if (id < 16) {
+          if (id <= 16) {
             displayInfo(datum[id - 1]);
-          } else {
+          } else if(id <= 35) {
             displayInfo(datum[id - 2]);
+          } else {
+            displayInfo(datum[id - 3]);
           }
         });
       getComments(id);
