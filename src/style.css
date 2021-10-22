@@ -117,10 +117,6 @@ footer {
   box-shadow: -1px 2px 17px rgba(0, 0, 0, 0.5);
 }
 
-.hide {
-  display: none;
-}
-
 .btn:hover {
   background-color: red;
   cursor: pointer;
@@ -152,8 +148,21 @@ footer {
   justify-content: space-between;
 }
 
-.comment-div p {
-  margin-left: 4em;
+.comment-div div {
+  margin-left: 1em;
+}
+
+.x-icon {
+  height: 5em;
+  width: 5em;
+}
+
+.x-icon:hover {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
 }
 
 @media screen and (min-width: 780px) {

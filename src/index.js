@@ -1,11 +1,13 @@
 // import _ from 'lodash';
 import './style.css';
 import logo from './images/logo.png';
+import cancel from './images/xicon.jpg';
 import load from './images/loading.gif';
 import like from './images/heart.png';
 import Image from './ImgElement.js';
 
 const img = document.querySelector('.logo-image');
+const img2 = document.querySelector('.x-icon');
 const content = document.querySelector('.content');
 const header = document.querySelector('#header');
 const info = document.querySelector('.information')
@@ -17,17 +19,18 @@ const init = {
 };
 img.setAttribute('src', logo);
 const limit = { inf: 0, sup: 50 };
+img2.setAttribute('src', cancel);
 
   /**
  * Function for displaying comments
  */
    const displayComments = (data) => {
     const template = `
-    <div class="comment-div">
+    <section class="comment-div">
     <div>${data.creation_date}</div>
     <div>${data.username}:</div>
     <div>${data.comment}</div>
-    </div>
+    </section>
     
     `;
     comments.innerHTML += template;
@@ -37,13 +40,18 @@ const limit = { inf: 0, sup: 50 };
  * this function fetch data from the API comment endpoint
  */
 const getComments = async (id) => {
-  const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments?item_id=' + id);
-  const json = await response.json();
-  json.forEach(element => {
-    displayComments(element)
+  await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments?item_id=' + id)
+  .then((resp) => resp.json())
+  .then((json) => {
+    if (json.error) {
+      return json = [];
+    } else {
+      json.forEach(element => {
+        displayComments(element)
+      });
+    }
   });
-  console.log(json);
-};
+ };
 
   /**
  * Display data about a particular series
@@ -80,8 +88,10 @@ const addButtonListen = () => {
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelector('.container').classList.add('hide')
-      document.querySelector('#header').classList.add('hide')
-      document.querySelector('.comment-section').classList.remove('hide')
+      document.querySelector('.logo').classList.add('hide')
+      document.querySelector('.links').classList.add('hide')
+      document.querySelector('.x-icon').classList.remove('hide')
+      document.querySelector('.form').classList.remove('hide')
       const id = btn.parentElement.parentElement.id
 
 /**
@@ -90,9 +100,7 @@ const addButtonListen = () => {
       fetch('https://api.tvmaze.com/shows')
       .then((resp) => resp.json())
       .then((datum) => {
-        console.log(datum[id-1]);
-        displayInfo(datum[id-1])
-        
+        displayInfo(datum[id-1]);
       });
       getComments(id)
       
@@ -128,8 +136,6 @@ document.querySelector('.button-submit').addEventListener('click', (e) => {
 })
     })
   }); 
-
-  
 }
 
 /**
@@ -202,9 +208,17 @@ window.addEventListener('scroll', () => {
   }
 });
 
-
-
-
+img2.addEventListener('click', () => {
+  window.location.reload()
+  // document.querySelector('.container').classList.remove('hide')
+  // document.querySelector('.logo').classList.remove('hide')
+  // document.querySelector('.links').classList.remove('hide')
+  // document.querySelector('.x-icon').classList.add('hide')
+  // document.querySelector('.form').classList.add('hide')
+  // document.querySelector('.information').innerHTML = ''
+  // document.querySelector('.comments').innerHTML = ''
+  // document.documentElement.scrollTop = 0;
+})
 
 /**
  * Unique ID generated for App
