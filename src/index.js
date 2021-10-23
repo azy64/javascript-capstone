@@ -1,4 +1,3 @@
-// import _ from 'lodash';
 import './style.css';
 import logo from './images/logo.png';
 import cancel from './images/xicon.jpg';
@@ -41,11 +40,8 @@ const getComments = async (id) => {
         commentCounter(json);
         displayComments(json);
       } else {
-        // json.forEach((element) => {
-        // console.log('comment', json);
         displayComments(json);
         commentCounter(json);
-        //  });
       }
     });
 };
@@ -58,7 +54,6 @@ const addButtonListen = () => {
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
       window.scrollTo(0, 0);
-      // document.querySelector('.comment-section').classList.remove('hide');
       document.querySelector('.comment-section').classList.add('visible');
       const id = parseInt(btn.parentNode.parentNode.id, 10);
 
@@ -141,16 +136,8 @@ const addLike = (id, data) => {
  * @param {integer} id 
  */
 const displayLike = async (node, id) => {
-  // await getLikes();
-  // const data = AppId.getLikes();
-  //console.log('data:',data)
-  //if (data.length > 0) {
-    // const index = data.findIndex((element) => element.item_id === id);
     const brother = node.nextSibling;
-    // if(data[index])
-    // brother.innerHTML = data[index].likes;
     brother.innerHTML = parseInt(brother.innerHTML,10)+1;
-  //}
 };
 const giveLike = (e) => {
   const myTarget = e.target;
@@ -188,7 +175,6 @@ const myLike = (id) => {
  */
 const displayData = (data) => {
   let tmp = '';
-  // if(data.length <)
   for (let i = limit.inf; i < limit.sup; i += 1) {
     if (i >= data.length) break;
     tmp += `
@@ -257,8 +243,6 @@ window.addEventListener('scroll', () => {
 
 img2.addEventListener('click', () => {
   const pop = document.querySelector('.comment-section')
-  // console.log(pop);
   pop.classList.remove('visible');
-  // window.location.reload();
 });
 
