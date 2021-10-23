@@ -5,15 +5,19 @@ const comments = document.querySelector('.comments');
  * Function for displaying comments
  */
 export const displayComments = (data) => {
-  const template = `
-      <section class="comment-div">
-      <div>${data.creation_date}</div>
-      <div>${data.username}:</div>
-      <div>${data.comment}</div>
+  comments.innerHTML = '';
+  let template = '';
+  data.forEach((element) => {
+    template += `
+      <section class="comment-div text-center">
+      <span>${element.creation_date}</span>
+      <span>${element.username}:</span>
+      <span>${element.comment}</span>
       </section>
       
       `;
-  comments.innerHTML += template;
+  });
+  comments.innerHTML = template;
 };
 
 /**
@@ -22,7 +26,7 @@ export const displayComments = (data) => {
 export const displayInfo = (data) => {
   const template = `
       <div class="serie" id="${data.id}">
-        <div class="serie-image">
+        <div class="serie-image text-center">
           <img src="${data.image.original}">
         </div>
   
@@ -40,5 +44,5 @@ export const displayInfo = (data) => {
   </div>
       
       `;
-  info.innerHTML += template;
+  info.innerHTML = template;
 };

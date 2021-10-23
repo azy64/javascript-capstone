@@ -126,32 +126,37 @@ footer {
   cursor: pointer;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .comment-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: auto auto auto;
   border: 0.1em solid black;
-  padding: 1em;
-  box-shadow: -1px 2px 17px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 27px rgba(0, 0, 0, 0.7);
   position: fixed;
-  top: 5%;
-  left: 1.5em;
-  right: 1.5em;
   background-color: white;
   z-index: 2;
-  height: 570px;
-  width: auto;
+  height: 450px;
+  width: 80%;
   overflow-y: scroll;
+  left: -100%;
+  top: -100%;
+  transition: left 1s, top 1s;
 }
 
 .serie {
-  display: flex;
-  flex-direction: column;
+  display: grid !important;
+  width: 99%;
+  margin: 0 !important;
+  grid-template-rows: 50% 50% !important;
+  row-gap: 50px;
 }
 
 .serie-image img {
-  height: 33em;
-  width: 23em;
+  height: 25em;
+  width: 90%;
 }
 
 .button-submit {
@@ -167,13 +172,14 @@ footer {
   cursor: pointer;
 }
 
-.comment-div {
+/* .comment-div {
   display: flex;
 }
 
 .comment-div div {
   margin-left: 1em;
 }
+*/
 
 .x-icon {
   height: 5em;
@@ -184,8 +190,9 @@ footer {
   cursor: pointer;
 }
 
-.hide {
-  display: none;
+.visible {
+  top: 5%;
+  left: 15%;
 }
 
 @media screen and (min-width: 780px) {
@@ -201,12 +208,12 @@ footer {
     grid-column-gap: 20px;
   }
 
-  .serie {
+  /* .serie {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-gap: 2em;
-    margin-inline: 5em;
+
   }
+  */
 
   #number {
     border-radius: 6px;
@@ -217,6 +224,34 @@ footer {
 
   .item:hover {
     color: green;
+  }
+
+  .serie {
+    display: grid !important;
+    width: 99%;
+    margin: 0 !important;
+    grid-template-columns: 35% 50% !important;
+  }
+
+  .comment-section {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    border: 0.1em solid black;
+    box-shadow: 1px 1px 27px rgba(0, 0, 0, 0.7);
+    position: fixed;
+    background-color: white;
+    z-index: 2;
+    height: 500px;
+    width: 70%;
+    overflow-y: scroll;
+    left: -100%;
+    top: -100%;
+    transition: left 1s, top 1s;
+  }
+
+  .visible {
+    top: 5%;
+    left: 15%;
   }
 }
 

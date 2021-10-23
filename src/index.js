@@ -39,11 +39,13 @@ const getComments = async (id) => {
         p.innerHTML = 'Add a new comment';
         document.querySelector('.comments').appendChild(p);
         commentCounter(json);
+        displayComments(json);
       } else {
-        json.forEach((element) => {
-          displayComments(element);
-          commentCounter(json);
-        });
+        // json.forEach((element) => {
+        // console.log('comment', json);
+        displayComments(json);
+        commentCounter(json);
+        //  });
       }
     });
 };
@@ -56,8 +58,9 @@ const addButtonListen = () => {
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
       window.scrollTo(0, 0);
-      document.querySelector('.comment-section').classList.remove('hide');
-      const { id } = btn.parentElement.parentElement;
+      // document.querySelector('.comment-section').classList.remove('hide');
+      document.querySelector('.comment-section').classList.add('visible');
+      const id = parseInt(btn.parentNode.parentNode.id, 10);
 
       /**
  * Get information about series to display
@@ -253,6 +256,9 @@ window.addEventListener('scroll', () => {
 });
 
 img2.addEventListener('click', () => {
-  window.location.reload();
+  const pop = document.querySelector('.comment-section')
+  // console.log(pop);
+  pop.classList.remove('visible');
+  // window.location.reload();
 });
 
