@@ -5,19 +5,15 @@ const comments = document.querySelector('.comments');
  * Function for displaying comments
  */
 export const displayComments = (data) => {
-  comments.innerHTML = '';
-  let template = '';
-  data.forEach((element) => {
-    template += `
+  const template = `
       <section class="comment-div text-center">
-      <span>${element.creation_date}</span>
-      <span>${element.username}:</span>
-      <span>${element.comment}</span>
+      <span>${data.creation_date}</span>
+      <span>${data.username}:</span>
+      <span>${data.comment}</span>
       </section>
       
       `;
-  });
-  comments.innerHTML = template;
+  comments.innerHTML += template;
 };
 
 /**
