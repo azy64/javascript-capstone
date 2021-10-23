@@ -27,7 +27,7 @@ export const displayInfo = (data) => {
   const template = `
       <div class="serie" id="${data.id}">
         <div class="serie-image text-center">
-          <img src="${data.image.original}">
+          <img src="${data.image.medium}">
         </div>
   
         <div>

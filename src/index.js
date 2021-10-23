@@ -9,6 +9,7 @@ import commentCounter from './count-comment.js';
 import { displayComments, displayInfo } from './display.js';
 import AppId from './AppId.js';
 import Utilities from './Utilities.js';
+import Comment from './Comments.js';
 
 const img = document.querySelector('.logo-image');
 const img2 = document.querySelector('.x-icon');
@@ -40,6 +41,7 @@ const getComments = async (id) => {
         commentCounter(json);
         displayComments(json);
       } else {
+        // console.log('datum:', json);
         displayComments(json);
         commentCounter(json);
       }
@@ -49,18 +51,20 @@ const getComments = async (id) => {
 /**
  * Event for implementing comment popup
  */
-const addButtonListen = () => {
+const addButtonListen = async () => {
   const buttons = document.querySelectorAll('.btn');
   buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      window.scrollTo(0, 0);
+    btn.addEventListener('click', async () => {
       document.querySelector('.comment-section').classList.add('visible');
       const id = parseInt(btn.parentNode.parentNode.id, 10);
+      const k = await Comment.getGeneralInformation(id);
+      console.log('information ', `${id}`, k);
+      if (Comment.information.length > 0) displayInfo(k);
 
       /**
  * Get information about series to display
  */
-      fetch('https://api.tvmaze.com/shows')
+     /* fetch('https://api.tvmaze.com/shows')
         .then((resp) => resp.json())
         .then((datum) => {
           if (id <= 16) {
@@ -71,6 +75,7 @@ const addButtonListen = () => {
             displayInfo(datum[id - 3]);
           }
         });
+        */
       getComments(id);
 
       /**
@@ -96,6 +101,7 @@ const addButtonListen = () => {
           /*eslint-disable*/
           const json = await response.text();
           document.querySelector('.comments').innerHTML = ''
+          // console.log('id', id);
           getComments(id);
         };
 
