@@ -38,9 +38,7 @@ const getComments = async (id) => {
         p.innerHTML = 'Add a new comment';
         document.querySelector('.comments').appendChild(p);
         commentCounter(json);
-        console.log(json);
       } else {
-        console.log(json);
         json.forEach((element) => {
           displayComments(element);
           commentCounter(json);
@@ -48,7 +46,6 @@ const getComments = async (id) => {
       }
     });
 };
-
 
 /**
  * Event for implementing comment popup
@@ -83,9 +80,9 @@ const addButtonListen = () => {
       document.querySelector('.button-submit').addEventListener('click', (e) => {
         e.preventDefault();
         if (document.querySelector('#message').value === '' || document.querySelector('.name').value === '') {
-          document.querySelector('.error').innerHTML = 'Fill in all emtpy fields'
+          document.querySelector('.error').innerHTML = 'Fill in all emtpy fields';
         } else {
-          document.querySelector('.error').innerHTML = ''
+          document.querySelector('.error').innerHTML = '';
           const name = document.querySelector('.name').value;
           const message = document.querySelector('#message').value;
           const postComments = async () => {

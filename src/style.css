@@ -172,15 +172,6 @@ footer {
   cursor: pointer;
 }
 
-/* .comment-div {
-  display: flex;
-}
-
-.comment-div div {
-  margin-left: 1em;
-}
-*/
-
 .x-icon {
   height: 5em;
   width: 5em;
@@ -211,13 +202,6 @@ footer {
     grid-row-gap: 20px;
     grid-column-gap: 20px;
   }
-
-  /* .serie {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-
-  }
-  */
 
   #number {
     border-radius: 6px;
