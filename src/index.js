@@ -29,7 +29,7 @@ img2.setAttribute('src', cancel);
  * this function fetch data from the API comment endpoint
  */
 const getComments = async (id) => {
-  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments?item_id=${id}`)
+  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/lGB5hHvtBzDxEydBmgFk/comments?item_id=${id}`)
     .then((resp) => resp.json())
     .then((json) => {
       if (json.error) {
@@ -38,13 +38,17 @@ const getComments = async (id) => {
         p.innerHTML = 'Add a new comment';
         document.querySelector('.comments').appendChild(p);
         commentCounter(json);
-        displayComments(json);
+        console.log(json);
       } else {
-        displayComments(json);
-        commentCounter(json);
+        console.log(json);
+        json.forEach((element) => {
+          displayComments(element);
+          commentCounter(json);
+        });
       }
     });
 };
+
 
 /**
  * Event for implementing comment popup
@@ -55,7 +59,7 @@ const addButtonListen = () => {
     btn.addEventListener('click', () => {
       window.scrollTo(0, 0);
       document.querySelector('.comment-section').classList.add('visible');
-      const id = parseInt(btn.parentNode.parentNode.id, 10);
+      const { id } = btn.parentElement.parentElement;
 
       /**
  * Get information about series to display
@@ -78,30 +82,35 @@ const addButtonListen = () => {
  */
       document.querySelector('.button-submit').addEventListener('click', (e) => {
         e.preventDefault();
-        const name = document.querySelector('.name').value;
-        const message = document.querySelector('#message').value;
-
-        const postComments = async () => {
-          const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/YG7f4fmyaSRAJHzw8A5N/comments', {
-            method: 'post',
-            body: JSON.stringify({
-              item_id: id,
-              username: name,
-              comment: message,
-            }),
-            headers: {
-              'Content-type': 'application/json; charset=UTF-8',
-            },
-          });
-          /*eslint-disable*/
-          const json = await response.text();
-          document.querySelector('.comments').innerHTML = ''
-          getComments(id);
-        };
-
-        document.querySelector('.name').value = '';
-        document.querySelector('#message').value = '';
-        postComments();
+        if (document.querySelector('#message').value === '' || document.querySelector('.name').value === '') {
+          document.querySelector('.error').innerHTML = 'Fill in all emtpy fields'
+        } else {
+          document.querySelector('.error').innerHTML = ''
+          const name = document.querySelector('.name').value;
+          const message = document.querySelector('#message').value;
+          const postComments = async () => {
+            const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/lGB5hHvtBzDxEydBmgFk/comments', {
+              method: 'post',
+              body: JSON.stringify({
+                item_id: id,
+                username: name,
+                comment: message,
+              }),
+              headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+              },
+            });
+            /*eslint-disable*/
+            const json = await response.text();
+            console.log(json);
+            document.querySelector('.comments').innerHTML = ''
+            getComments(id);
+          };
+  
+          document.querySelector('.name').value = '';
+          document.querySelector('#message').value = '';
+          postComments(); 
+        }
       });
     });
   });
@@ -242,7 +251,6 @@ window.addEventListener('scroll', () => {
 });
 
 img2.addEventListener('click', () => {
-  const pop = document.querySelector('.comment-section')
-  pop.classList.remove('visible');
+  window.location.reload()
 });
 
