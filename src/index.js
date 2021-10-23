@@ -61,7 +61,7 @@ const addButtonListen = async () => {
       /**
  * Get information about series to display
  */
-      /* fetch('https://api.tvmaze.com/shows')
+      fetch('https://api.tvmaze.com/shows')
         .then((resp) => resp.json())
         .then((datum) => {
           if (id <= 16) {
@@ -72,7 +72,7 @@ const addButtonListen = async () => {
             displayInfo(datum[id - 3]);
           }
         });
-        */
+
       getComments(id);
 
       /**
