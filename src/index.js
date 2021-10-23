@@ -1,14 +1,14 @@
+import Image from './ImgElement.js';
+import commentCounter from './count-comment.js';
+import { displayComments, displayInfo } from './display.js';
+import AppId from './AppId.js';
+import Utilities from './Utilities.js';
 import './style.css';
 import logo from './images/logo.png';
 import cancel from './images/xicon.jpg';
 import load from './images/loading.gif';
 import like from './images/heart.png';
 import likeGreen from './images/heart-green.png';
-import Image from './ImgElement.js';
-import commentCounter from './count-comment.js';
-import { displayComments, displayInfo } from './display.js';
-import AppId from './AppId.js';
-import Utilities from './Utilities.js';
 // import Comment from './Comments.js';
 
 const img = document.querySelector('.logo-image');
